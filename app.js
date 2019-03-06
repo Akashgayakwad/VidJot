@@ -38,6 +38,16 @@ app.get('/about', (req, res) => {
   res.render("about");
 });
 
+app.get('/ideas', (req, res) =>{
+  Idea.find({})
+  .sort({date:'desc'})
+  .then(ideas =>{
+    res.render('ideas/index',{
+      ideas:ideas
+    });
+  });
+});
+
 app.get('/ideas/add', (req, res) => {
   res.render("ideas/add");
 });
@@ -65,7 +75,7 @@ app.post('/ideas', (req, res) => {
       new Idea(newUser)
       .save()
       .then(idea =>{
-        res.redirect('/ideas');
+      res.redirect('/ideas');
       })
     }
 });
